@@ -3,8 +3,9 @@
 const express = require("express");
 const app = express();
 app.listen(4485);
-app.use(express.json());
-
+const bodyParser = require('body-parser')
+app.use(bodyParser.json());
+//app.use(express.json());
 
 let pokemon = ["Tyrannitar", "Kadabra", "Mewtwo", "Eevee", "Pikachu"];
 
@@ -42,11 +43,23 @@ app.get('/delete/:id', (req, res) => {
 //request handler which creates a new name in the array by sending
 // JSON object in the request body
 app.post('/addPokemon', (req, res) => {
-    const id = req.params.id;
-    const body = req.body;
-    res.send(nextID);
+    const reqObj = req.body.addPokemon.name;
+
+    console.log(`Pokemon received:  ${reqObj}`);
+    pokemon.push(reqObj);
+    res.send(pokemon);
 })
 
+
+app.post('/replace/:id', (req, res) => {
+    const id = req.params.id;
+    const name = req.query.name;
+    console.log(id, name);
+    pokemon[id] = name;
+    console.log(`${name} added to Pokemon.`);
+    console.log(pokemon);
+    res.send(pokemon)
+})
 
 const server = app.listen(() => {
     console.log(`Server started succesfully on port ${server.address().port}`);
