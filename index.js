@@ -5,11 +5,10 @@ const app = express();
 const bodyParser = require('body-parser')
 app.use(bodyParser.json());
 
-
 let pokemon = ["Tyrannitar", "Kadabra", "Mewtwo", "Eevee", "Pikachu"];
 
 app.use((req, res, next) => {
-    console.log("request received at", new Date());
+    console.log("Request received at", new Date());
     return next();
 })
 
