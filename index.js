@@ -2,12 +2,16 @@
 
 const express = require("express");
 const app = express();
-app.listen(4485);
 const bodyParser = require('body-parser')
 app.use(bodyParser.json());
-//app.use(express.json());
+
 
 let pokemon = ["Tyrannitar", "Kadabra", "Mewtwo", "Eevee", "Pikachu"];
+
+app.use((req, res, next) => {
+    console.log("request received at", new Date());
+    return next();
+})
 
 
 app.get('/', (req, res) => {
@@ -20,7 +24,6 @@ app.get('/getAll', (req, res) => {
     console.log(pokemon);
     res.send(pokemon);
 })
-
 
 
 app.get('/find/:id', (req, res) => {
@@ -43,15 +46,14 @@ app.get('/delete/:id', (req, res) => {
 //request handler which creates a new name in the array by sending
 // JSON object in the request body
 app.post('/addPokemon', (req, res) => {
-    const reqObj = req.body.addPokemon.name;
-
+    const reqObj = req.body.name;
     console.log(`Pokemon received:  ${reqObj}`);
     pokemon.push(reqObj);
-    res.send(pokemon);
+    res.status(201).send(pokemon);
 })
 
 
-app.post('/replace/:id', (req, res) => {
+app.put('/replace/:id', (req, res) => {
     const id = req.params.id;
     const name = req.query.name;
     console.log(id, name);
@@ -61,6 +63,10 @@ app.post('/replace/:id', (req, res) => {
     res.send(pokemon)
 })
 
-const server = app.listen(() => {
+const server = app.listen(4417, () => {
     console.log(`Server started succesfully on port ${server.address().port}`);
 })
+
+
+//nodemon - automatically restarts server when code changes
+// "names": "nodemon index.js" in package.json

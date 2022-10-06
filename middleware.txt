@@ -1,0 +1,17 @@
+MIDDLEWARE
+
+Express is a series of functions each performing a small task.
+
+req->      function->       function->      function->           res->
+          (body-parser)
+
+
+app.use adds piece of middleware to the chain
+eg.
+app.use(() => {})
+
+
+app.use((req, res, next) => {
+    console.log("request received at", new Date());
+    return next();
+})

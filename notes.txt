@@ -1,0 +1,3 @@
+
+nodemon - automatically restarts server when code changes
+"names": "nodemon index.js" in package.json
