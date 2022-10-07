@@ -1,3 +1,22 @@
 
 nodemon - automatically restarts server when code changes
 "names": "nodemon index.js" in package.json
+
+middlewear structure - req,res,next
+error  handling middlewear - err,req,res,next
+
+put error handler at the bottom of code - if error is generated, 
+flow of function order will bypass all functions which dont handle
+errors.
+
+
+use next to send an error:
+if (blah blah) {
+    return next({ status: 404, message:'Not found' })
+}
+res.send();
+
+app.use((err, req,res,next) => {
+    console.log(err);
+    res.status(err.status || 500).send(err.message || "oops");
+})
