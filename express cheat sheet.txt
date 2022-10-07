@@ -1,0 +1,14 @@
+// STARTING NEW NODE/EXPRESS PACKAGE
+
+npm init -y
+npm install express
+npm i body-parser
+npm i nodemon
+
+JS FILE
+const express = require('express');
+const app = express();
+app.listen(4494);
+
+PACKAGE.JSON FILE
+"start": "nodemon index.js"
